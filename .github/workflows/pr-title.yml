@@ -3,8 +3,9 @@ name: PR
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+
 permissions:
-  pull_requests: read
+  pull-requests: read
 
 jobs:
   title:
