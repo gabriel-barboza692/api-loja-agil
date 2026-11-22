@@ -1,17 +1,17 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get } from '@nestjs/common';
 
 export type HealthStatus = {
   status: 'ok';
-  uptimeInSeconds:number
-}
+  uptimeInSeconds: number;
+};
 
-@Controller("/health")
-export class HealthController{
+@Controller('/health')
+export class HealthController {
   @Get()
-  check():HealthStatus{
+  check(): HealthStatus {
     return {
-      status:'ok',
-      uptimeInSeconds: Math.floor(process.uptime())
-    }
+      status: 'ok',
+      uptimeInSeconds: Math.floor(process.uptime()),
+    };
   }
 }
