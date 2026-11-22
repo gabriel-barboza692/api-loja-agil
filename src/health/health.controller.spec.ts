@@ -1,11 +1,10 @@
-import { HealthController } from "./health.controller.js";
+import { HealthController } from './health.controller.js';
 
 describe('HealthController', () => {
   test('should report the application as healthy', () => {
     const controller = new HealthController();
-    const result = controller.check()
-    expect(result.status).toBe("ok")
-    expect(result.uptimeInSeconds).toBeGreaterThanOrEqual(0)
-  })
-  
-})
+    const result = controller.check();
+    expect(result.status).toBe('ok');
+    expect(result.uptimeInSeconds).toBeGreaterThanOrEqual(0);
+  });
+});
