@@ -5,7 +5,10 @@
     "typescript/no-floating-promises": "error",
     "typescript/consistent-type-imports": "error",
     "no-console": "error",
-    "eqeqeq": "error"
+    "eqeqeq": "error",
+    "curly": "error",
+    "max-depth": ["error", 1],
+    "no-else-return": ["error", { "allowElseIf": false }]
   },
   "env": {
     "node": true

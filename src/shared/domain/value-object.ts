@@ -6,8 +6,12 @@ export abstract class ValueObject<Props extends object> {
   }
 
   equals(other?: ValueObject<Props>): boolean {
-    if (other === undefined) return false;
-    if (other.constructor !== this.constructor) return false;
+    if (other === undefined) {
+      return false;
+    }
+    if (other.constructor !== this.constructor) {
+      return false;
+    }
     return JSON.stringify(this.props) === JSON.stringify(other.props);
   }
 }
