@@ -15,7 +15,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "oxlint --type-aware --deny-warnings src/ test/",
-    "lint:fix": "oxlint --type-aware --fix src/ test/",
+    "lint:fix": "oxlint --type-aware --fix src/ test/ katas/",
     "test": "vitest run",
     "test:docker": "docker compose exec -T app npm exec -- vitest run",
     "test:cov": "vitest run --coverage",

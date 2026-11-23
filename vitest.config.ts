@@ -7,11 +7,11 @@ export default defineConfig({
   test: {
     globals: true,
     root: './',
-    include: ['src/**/*.spec.ts'],
+    include: ['src/**/*.spec.ts', 'katas/**/*.spec.ts'],
     coverage: {
       provider: 'v8',
-      include: ['src/**/*.ts'],
-      exclude: ['src/**/__tests__/**', 'src/**/*.spec.ts', 'src/**/*.module.ts', 'src/main.ts'],
+      include: ['src/**/*.ts', 'katas/**/*.spec.ts'],
+      exclude: ['src/**/__tests__/**', '**/*.spec.ts', 'src/**/*.module.ts', 'src/main.ts'],
       reporter: ['text', 'html', 'lcov'],
       thresholds: {
         lines: 90,
