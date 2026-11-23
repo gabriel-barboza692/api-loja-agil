@@ -17,6 +17,7 @@
     "lint": "oxlint --type-aware --deny-warnings src/ test/",
     "lint:fix": "oxlint --type-aware --fix src/ test/",
     "test": "vitest run",
+    "test:docker": "docker compose exec -T app npm exec -- vitest run",
     "test:cov": "vitest run --coverage",
     "test:watch": "vitest",
     "test:watch:docker": "docker compose exec app npm run test:watch",
@@ -24,9 +25,10 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts",
     "test:e2e:docker": "docker compose exec app npm run test:e2e -- --watch",
     "logs:docker": "docker compose logs -f app",
-    "ci:test:docker": "docker compose exec app sh -c \"npm run format:check && npm run lint && npm run arch && npm run typecheck && npm run test:cov && npm run test:e2e && npm run build\"",
+    "ci:test:docker": "docker compose exec -T app sh -c \"npm run format:check && npm run lint && npm run arch && npm run typecheck && npm run test:cov && npm run test:e2e && npm run build\"",
     "typecheck": "tsc --noEmit",
-    "arch": "depcruise src --config .dependency-cruiser.cjs"
+    "arch": "depcruise src --config .dependency-cruiser.cjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
@@ -39,6 +41,8 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
     "@nestjs/cli": "^12.0.0",
     "@nestjs/mau": "^0.2.6",
     "@nestjs/schematics": "^12.0.0",
@@ -46,6 +50,7 @@
     "@types/node": "^24.0.0",
     "@vitest/coverage-v8": "^5.1.1",
     "dependency-cruiser": "^18.9.0",
+    "husky": "^9.1.7",
     "oxlint": "^1.58.0",
     "oxlint-tsgolint": "^7.0.2001",
     "prettier": "^3.4.2",
