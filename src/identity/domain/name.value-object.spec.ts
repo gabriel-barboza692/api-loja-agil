@@ -17,7 +17,7 @@ class Name extends ValueObject<{ value: string }> {
   }
 }
 
-describe.only('Name', () => {
+describe('Name', () => {
   test('should trim the value and collapse repeated spaces', () => {
     const name = Name.create('  Ana    Maria  Silva ');
     expect(name.toString()).toBe('Ana Maria Silva');
