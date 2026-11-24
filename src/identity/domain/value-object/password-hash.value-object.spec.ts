@@ -1,4 +1,4 @@
-import { InvalidPasswordHashError } from './invalid-password-hash.error.js';
+import { InvalidPasswordHashError } from '../errors/invalid-password-hash.error.js';
 import { PasswordHash } from './password-hash.value-object.js';
 
 describe('PasswordHash', () => {

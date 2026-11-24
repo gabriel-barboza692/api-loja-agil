@@ -1,4 +1,4 @@
-import { InvalidNameError } from './invalid-name.error.js';
+import { InvalidNameError } from '../errors/invalid-name.error.js';
 import { Name } from './name.value-object.js';
 
 describe('Name', () => {

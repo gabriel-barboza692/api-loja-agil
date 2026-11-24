@@ -1,5 +1,5 @@
-import { ValueObject } from '../../shared/domain/value-object.js';
-import { WeakPasswordError } from './weak-password-error.js';
+import { ValueObject } from '../../../shared/domain/value-object.js';
+import { WeakPasswordError } from '../errors/weak-password-error.js';
 
 export class Password extends ValueObject<{ value: string }> {
   private static MIN_LENGTH = 8;

@@ -1,4 +1,4 @@
-import { DomainError } from '../../shared/domain/domain-error.js';
+import { DomainError } from '../../../shared/domain/domain-error.js';
 
 export class InvalidNameError extends DomainError {
   code: string = 'INVALID_NAME';

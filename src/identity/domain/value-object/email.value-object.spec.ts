@@ -1,5 +1,5 @@
+import { InvalidEmailError } from '../errors/invalid-email.error.js';
 import { Email } from './email.value-object.js';
-import { InvalidEmailError } from './invalid-email.error.js';
 
 describe('Email', () => {
   test('should normalize the address to trimmed lowercase', () => {

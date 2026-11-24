@@ -1,13 +1,13 @@
-import { Email } from './email.value-object.js';
-import { InvalidEmailError } from './invalid-email.error.js';
-import { Name } from './name.value-object.js';
-import { PasswordHash } from './password-hash.value-object.js';
-import type { PasswordVerifier } from './password-verifier.js';
-import { Password } from './password.value-object.js';
-import { Role } from './role.js';
-import { UserRegistered } from './user-registered.event.js';
-import type { UserSnapshot } from './user.entity.js';
-import { User } from './user.entity.js';
+import { aUser } from '../__tests__/user.builder.js';
+import { Role } from '../enum/role.js';
+import { InvalidEmailError } from '../errors/invalid-email.error.js';
+import { UserRegistered } from '../event/user-registered.event.js';
+import { type PasswordVerifier } from '../port/password-verifier.js';
+import { Email } from '../value-object/email.value-object.js';
+import { Name } from '../value-object/name.value-object.js';
+import { PasswordHash } from '../value-object/password-hash.value-object.js';
+import { Password } from '../value-object/password.value-object.js';
+import { User, type UserSnapshot } from './user.entity.js';
 
 function registerAna(): User {
   return User.register({
@@ -25,16 +25,15 @@ const storedOperator: UserSnapshot = {
   role: Role.OPERATOR,
 };
 
-class PrefixVerifierMock implements PasswordVerifier {
-  async verify(password: Password, hash: PasswordHash): Promise<boolean> {
-    return Promise.resolve(hash.toString() === `hashed:${password.reveal()}`);
-  }
-}
+const prefixVerifier: PasswordVerifier = {
+  verify: (password, hash) => Promise.resolve(hash.toString() === `hashed:${password.reveal()}`),
+};
 
 describe('User', () => {
   describe('register', () => {
-    test('should create a customer with a new id and the given data', () => {
+    it('should create a customer with a new id and the given data', () => {
       const user = registerAna();
+
       expect(user.toSnapshot()).toEqual({
         id: user.id.toString(),
         name: 'Ana Silva',
@@ -44,11 +43,11 @@ describe('User', () => {
       });
     });
 
-    test('should give each registered user a different id', () => {
+    it('should give each registered user a different id', () => {
       expect(registerAna().equals(registerAna())).toBe(false);
     });
 
-    test('should record the UserRegistered event', () => {
+    it('should record the UserRegistered event', () => {
       const user = registerAna();
 
       const events = user.pullDomainEvents();
@@ -63,47 +62,61 @@ describe('User', () => {
   });
 
   describe('restore', () => {
-    test('should rebuild a user from a snapshot without recording events', () => {
+    it('should rebuild a user from a snapshot without recording events', () => {
       const user = User.restore(storedOperator);
 
       expect(user.toSnapshot()).toEqual(storedOperator);
       expect(user.pullDomainEvents()).toEqual([]);
     });
 
-    test('should reject a snapshot with invalid data', () => {
+    it('should reject a snapshot with invalid data', () => {
       const corrupted = { ...storedOperator, email: 'bruno' };
+
       expect(() => User.restore(corrupted)).toThrow(InvalidEmailError);
     });
   });
 
   describe('profile changes', () => {
-    test('should rename the user', () => {
-      const user = registerAna();
+    it('should rename the user', () => {
+      const user = aUser().build();
+
       user.rename(Name.create('Ana Souza'));
+
       expect(user.toSnapshot().name).toBe('Ana Souza');
     });
-    test('should change the email', () => {
-      const user = registerAna();
+
+    it('should change the email', () => {
+      const user = aUser().build();
+
       user.changeEmail(Email.create('ana.souza@lojaagil.com'));
+
       expect(user.hasEmail(Email.create('ana.souza@lojaagil.com'))).toBe(true);
       expect(user.hasEmail(Email.create('ana@lojaagil.com'))).toBe(false);
     });
-    test('should change the password hash', () => {
-      const user = registerAna();
+
+    it('should change the password hash', () => {
+      const user = aUser().build();
+
       user.changePassword(PasswordHash.fromHash('hashed:nova2026'));
+
       expect(user.toSnapshot().passwordHash).toBe('hashed:nova2026');
     });
   });
 
   describe('authenticate', () => {
-    test('should accept the password that matches the stored hash', async () => {
-      const user = registerAna();
-      const authenticated = await user.authenticate(Password.create('agil2026'), new PrefixVerifierMock());
+    it('should accept the password that matches the stored hash', async () => {
+      const user = aUser().withPasswordHash('hashed:agil2026').build();
+
+      const authenticated = await user.authenticate(Password.create('agil2026'), prefixVerifier);
+
       expect(authenticated).toBe(true);
     });
-    test('should refuse a different password', async () => {
-      const user = registerAna();
-      const authenticated = await user.authenticate(Password.create('errada123'), new PrefixVerifierMock());
+
+    it('should refuse a different password', async () => {
+      const user = aUser().withPasswordHash('hashed:agil2026').build();
+
+      const authenticated = await user.authenticate(Password.create('errada123'), prefixVerifier);
+
       expect(authenticated).toBe(false);
     });
   });

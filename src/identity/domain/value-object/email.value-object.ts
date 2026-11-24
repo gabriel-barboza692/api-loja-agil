@@ -1,5 +1,5 @@
-import { ValueObject } from '../../shared/domain/value-object.js';
-import { InvalidEmailError } from './invalid-email.error.js';
+import { ValueObject } from '../../../shared/domain/value-object.js';
+import { InvalidEmailError } from '../errors/invalid-email.error.js';
 
 const MAX_LENGTH = 254;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
