@@ -8,10 +8,25 @@
     "eqeqeq": "error",
     "curly": "error",
     "max-depth": ["error", 1],
-    "no-else-return": ["error", { "allowElseIf": false }]
+    "no-else-return": ["error", { "allowElseIf": false }],
+    "id-length": ["error", { "min": 2, "exceptions": ["_", "z"] }],
+    "max-lines-per-function": ["error", { "max": 15, "skipBlankLines": true, "skipComments": true }],
+    "max-lines": ["error", { "max": 100, "skipBlankLines": true, "skipComments": true }],
+    "max-params": ["error", 3],
+    "max-classes-per-file": ["error", 1]
   },
   "env": {
     "node": true
   },
+  "overrides": [
+    {
+      "files": ["**/*.spec.ts", "**/*.e2e-spec.ts"],
+      "rules": {
+        "max-lines-per-function": "off",
+        "max-lines": "off",
+        "max-classes-per-file": "off"
+      }
+    }
+  ],
   "ignorePatterns": ["dist/**", "coverage/**"]
 }

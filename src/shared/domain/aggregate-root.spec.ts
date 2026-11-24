@@ -35,7 +35,7 @@ describe('AggregateRoot', () => {
     counter.increment();
     const events = counter.pullDomainEvents() as CounterIncremented[];
     expect(events.map((event) => event.value)).toEqual([1, 2]);
-    expect(events.map((e) => e.aggregateId)).toEqual([counter.id.toString(), counter.id.toString()]);
+    expect(events.map((event) => event.aggregateId)).toEqual([counter.id.toString(), counter.id.toString()]);
   });
   test('should clear the events once they are pulled', () => {
     const counter = Counter.create();
