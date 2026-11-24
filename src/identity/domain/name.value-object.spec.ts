@@ -1,21 +1,5 @@
-import { ValueObject } from '../../shared/domain/value-object.js';
 import { InvalidNameError } from './invalid-name.error.js';
-
-class Name extends ValueObject<{ value: string }> {
-  private static readonly MIN_LENGTH = 2;
-  private static readonly MAX_LENGTH = 100;
-  static create(name: string) {
-    const normalized = name.trim().replace(/\s{2,}/g, ' ');
-    if (normalized.length < this.MIN_LENGTH || normalized.length > this.MAX_LENGTH) {
-      throw new InvalidNameError(this.MIN_LENGTH, this.MAX_LENGTH);
-    }
-    return new Name({ value: normalized });
-  }
-
-  toString(): string {
-    return this.props.value;
-  }
-}
+import { Name } from './name.value-object.js';
 
 describe('Name', () => {
   test('should trim the value and collapse repeated spaces', () => {
