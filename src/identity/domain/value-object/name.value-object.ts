@@ -1,5 +1,5 @@
-import { ValueObject } from '../../shared/domain/value-object.js';
-import { InvalidNameError } from './invalid-name.error.js';
+import { ValueObject } from '../../../shared/domain/value-object.js';
+import { InvalidNameError } from '../errors/invalid-name.error.js';
 
 const MIN_LENGTH = 2;
 const MAX_LENGTH = 100;

@@ -1,5 +1,5 @@
-import { ValueObject } from '../../shared/domain/value-object.js';
-import { InvalidPasswordHashError } from './invalid-password-hash.error.js';
+import { ValueObject } from '../../../shared/domain/value-object.js';
+import { InvalidPasswordHashError } from '../errors/invalid-password-hash.error.js';
 
 export class PasswordHash extends ValueObject<{ value: string }> {
   static fromHash(password: string): PasswordHash {

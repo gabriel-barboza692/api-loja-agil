@@ -1,4 +1,4 @@
-import { InvalidRoleError } from './invalid-role.error.js';
+import { InvalidRoleError } from '../errors/invalid-role.error.js';
 
 export const Role = {
   CUSTOMER: 'CUSTOMER',

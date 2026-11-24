@@ -1,5 +1,5 @@
+import { WeakPasswordError } from '../errors/weak-password-error.js';
 import { Password } from './password.value-object.js';
-import { WeakPasswordError } from './weak-password-error.js';
 
 describe('Password', () => {
   test('should accept a password with at least 8 characters, letters and digits', () => {

@@ -1,12 +1,12 @@
-import { AggregateRoot } from '../../shared/domain/aggregate-root.js';
-import { UniqueId } from '../../shared/domain/unique-id.value-object.js';
-import { Email } from './email.value-object.js';
-import { Name } from './name.value-object.js';
-import { PasswordHash } from './password-hash.value-object.js';
-import type { PasswordVerifier } from './password-verifier.js';
-import type { Password } from './password.value-object.js';
-import { Role } from './role.js';
-import { UserRegistered } from './user-registered.event.js';
+import { AggregateRoot } from '../../../shared/domain/aggregate-root.js';
+import { UniqueId } from '../../../shared/domain/unique-id.value-object.js';
+import { Role } from '../enum/role.js';
+import { UserRegistered } from '../event/user-registered.event.js';
+import { type PasswordVerifier } from '../port/password-verifier.js';
+import { Email } from '../value-object/email.value-object.js';
+import { Name } from '../value-object/name.value-object.js';
+import { PasswordHash } from '../value-object/password-hash.value-object.js';
+import { type Password } from '../value-object/password.value-object.js';
 
 type UserProps = {
   name: Name;
